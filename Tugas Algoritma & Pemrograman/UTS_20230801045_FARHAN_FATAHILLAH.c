@@ -1,16 +1,21 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdbool.h>
+#include <unistd.h>
 
 int n, i, jumlah = 0, jumlah_genap;
 int bilangan;
 int rata_rata_genap;
 int i, j, n;
 int pilihan;
-int ulangi;
+int ulangi, berhasil;
 void clear()
 {
     printf("\033[2J\033[1;1H");
+}
+void delay_1()
+{
+    usleep(1000000);
 }
 
 int main()
@@ -26,6 +31,7 @@ int main()
     getchar();
     do
     {
+    awal:
         fflush(stdin);
         fflush(stdout);
         clear();
@@ -36,16 +42,41 @@ int main()
         printf("4. Keluar\n");
 
         printf("Masukkan Pilihan : ");
-        scanf("%d", &pilihan);
+
+        berhasil = scanf("%d", &pilihan);
+
+        if (berhasil != 1 || getchar() != '\n' || pilihan < 1 || pilihan > 7)
+        {
+            printf("\n");
+            printf("Input tidak valid. masukkan angka antara 1 dan 4\n");
+            delay_1();
+            fflush(stdin);
+            printf("Tekan Enter untuk lanjut...");
+            getchar();
+            goto awal;
+        }
 
         switch (pilihan)
         {
         case 1:
-
+            menu1:
+            fflush(stdin);
+            clear();
             jumlah_genap = 0;
             rata_rata_genap = 0;
             printf("Masukkan n: ");
             scanf("%d", &n);
+
+            if (berhasil != 1 || getchar() != '\n' || n < 1)
+            {
+                printf("\n");
+                printf("Input tidak valid\n");
+                delay_1();
+                fflush(stdin);
+                printf("Tekan Enter untuk lanjut...");
+                getchar();
+                goto menu1;
+            }
 
             // Membaca bilangan dan menghitung jumlah genap
             for (i = 0; i < n; i++)
@@ -71,9 +102,22 @@ int main()
             printf("Rata-rata Bilangan Genap Adalah: %d\n", rata_rata_genap);
             break;
         case 2:
-
+            menu2:
+            fflush(stdin);
+            clear();
             printf("Masukkan jumlah baris: ");
             scanf("%d", &n);
+
+            if (berhasil != 1 || getchar() != '\n' || n < 1)
+            {
+                printf("\n");
+                printf("Input tidak valid\n");
+                delay_1();
+                fflush(stdin);
+                printf("Tekan Enter untuk lanjut...");
+                getchar();
+                goto menu2;
+            }
 
             int totalSum = 0;
 
@@ -99,6 +143,9 @@ int main()
             printf("\nJumlah keseluruhan: %d\n", totalSum);
             break;
         case 3:
+            menu3:
+            fflush(stdin);
+            clear();
             printf("");
             int kp_bakwan = 20;
             int kp_gehu = 15;
@@ -108,16 +155,27 @@ int main()
             int total_kd;
 
             printf("Jumlah Bakwan Pak Engkus        : ");
-            scanf("%d", &bakwan);
+            berhasil = scanf("%d", &bakwan);
             printf("Jumlah Gehu Pak Engkus          : ");
-            scanf("%d", &gehu);
+            berhasil = scanf("%d", &gehu);
             printf("Jumlah Pisang Goreng Pak Engkus : ");
-            scanf("%d", &pisgor);
+            berhasil = scanf("%d", &pisgor);
+
+            if (berhasil != 1 || getchar() != '\n')
+            {
+                printf("\n");
+                printf("Input tidak valid\n");
+                delay_1();
+                fflush(stdin);
+                printf("Tekan Enter untuk lanjut...");
+                getchar();
+                goto menu3;
+            }
 
             // Menghitung jumlah kardus yang dibutuhkan
-            kd_bakwan = ceil((double)bakwan / kp_bakwan);
-            kd_gehu = ceil((double)gehu / kp_gehu);
-            kd_pisgor = ceil((double)pisgor / kp_pisgor);
+            kd_bakwan = bakwan / kp_bakwan;
+            kd_gehu = gehu / kp_gehu;
+            kd_pisgor = pisgor / kp_pisgor;
 
             total_kd = (kd_bakwan + kd_gehu + kd_pisgor);
 
