@@ -4,7 +4,7 @@
 int main()
 {
     int i, n, a[10];
-    int sum = 0; // Inisialisasi sum dengan 0
+    int angka = 0; // Inisialisasi angka dengan 0
     float rtrt;
 
     printf("Masukkan Banyak Angka : ");
@@ -14,7 +14,7 @@ int main()
     {
         printf("Masukkan Angka ke-[%d] : ", i + 1);
         scanf("%d", &a[i]);
-        sum += a[i]; // Tambahkan nilai ke sum di sini
+        angka += a[i]; 
     }
 
     printf("\n\n\n");
@@ -23,7 +23,7 @@ int main()
         printf("Angka ke-[%d] Adalah : %d\n", i + 1, a[i]);
     }
 
-    rtrt = (float)sum / n; // Ubah sum menjadi float untuk menghindari pembagian integer
+    rtrt = (float)angka / n; // Ubah angka menjadi float untuk menghindari
 
     printf("Rata Rata Nilai Adalah : %.2f", rtrt);
 
