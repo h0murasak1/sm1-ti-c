@@ -23,7 +23,7 @@ int main()
         printf("Angka ke-[%d] Adalah : %d\n", i + 1, a[i]);
     }
 
-    rtrt = (float)angka / n; // Ubah angka menjadi float untuk menghindari
+    rtrt = (float)angka / n; // Ubah angka menjadi float untuk menghindari penjumlahan integer
 
     printf("Rata Rata Nilai Adalah : %.2f", rtrt);
 
