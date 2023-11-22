@@ -194,7 +194,7 @@ int main()
         default:
             clear();
             fflush(stdin);
-            printf("Pilihan Tidak Valid.....\n");
+            printf("Pilihan Tidak Valid..........\n");
             delay_1();
             break;
         }
