@@ -14,6 +14,7 @@ void clear()
 }
 void NilaiRataRata()
 {
+    printf("========== NILAI RATA-RATA ==========\n");
     int i, n, a[10];
     int angka = 0; // Inisialisasi angka dengan 0
     float rtrt;
@@ -40,6 +41,7 @@ void NilaiRataRata()
 }
 void NilaiGenap()
 {
+    printf("========== NILAI GENAP ==========\n");
     int i, n, a[10];
     int angka = 0; // Inisialisasi angka dengan 0
     float rtrt;
@@ -68,6 +70,7 @@ void NilaiGenap()
 }
 void Nilai5()
 {
+    printf("========== NILAI 5 ==========\n");
     int i, n, a[10];
     int A5 = 0; // Inisialisasi jumlah angka 5 dengan 0
 
@@ -101,6 +104,7 @@ void Nilai5()
 }
 void MaxMin()
 {
+    printf("========== NILAI MAX & MIN ==========\n");
     int i, n, a[10];
 
     printf("Masukkan Banyak Angka : ");
@@ -189,6 +193,7 @@ int main()
 
         default:
             clear();
+            fflush(stdin);
             printf("Pilihan Tidak Valid.....\n");
             delay_1();
             break;
@@ -212,4 +217,6 @@ int main()
             ulangi = false;
         }
     } while (ulangi);
+
+    return 0;
 }
