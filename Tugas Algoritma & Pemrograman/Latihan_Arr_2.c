@@ -14,7 +14,6 @@ int main()
     {
         printf("Masukkan Angka ke-[%d] : ", i + 1);
         scanf("%d", &a[i]);
-        // angka += a[i];
     }
 
     printf("\n\n\n");
@@ -22,13 +21,13 @@ int main()
     {
         if (a[i] % 2 == 0)
         {
-            printf("Genap Array Ke-[%d] Adalah : %d\n", i + 1, a[i]);
+            printf("Gnp Array Ke-[%d] Adalah : %d\n", i + 1, a[i]);
+        }
+        else
+        {
+            printf("Gnj Array Ke-[%d] Adalah : %d\n", i + 1, a[i]);
         }
     }
-
-    /*rtrt = (float)angka / n; // Ubah angka menjadi float untuk menghindari penjumlahan integer
-
-    printf("Rata Rata Nilai Adalah : %.2f", rtrt);*/
 
     return 0;
 }
