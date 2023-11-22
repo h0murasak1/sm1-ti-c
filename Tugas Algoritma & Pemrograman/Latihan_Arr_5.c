@@ -187,7 +187,7 @@ int main()
             break;
 
         case 5:
-            printf("Terima Kasih.....\n");
+            printf("Terima Kasih..........\n");
             return 0;
             break;
 
