@@ -1,5 +1,13 @@
 #include "matriks.h"
 
+
+int berhasil;
+
+void delay_1()
+{
+    usleep(1000000);
+}
+
 void clear()
 {
     printf("\033[2J\033[1;1H");
@@ -18,9 +26,16 @@ void garis_pe()
     }
     printf("\n");
 }
-void delay_1()
+
+void eror()
 {
-    usleep(1000000);
+    printf("\n");
+    printf("Input tidak valid\n");
+    delay_1();
+    fflush(stdin);
+    printf("Tekan Enter untuk lanjut...");
+    getchar();
+    clear();
 }
 
 // Fungsi untuk menampilkan matriks
@@ -31,7 +46,7 @@ void displayMatrix(int matrix[10][10], int row, int col)
         printf("[");
         for (int j = 0; j < col; j++)
         {
-            printf("%d\t", matrix[i][j]);
+            printf(" %d ", matrix[i][j]);
         }
         printf("]\n");
     }
@@ -51,25 +66,51 @@ void addMatrix(int mat1[10][10], int mat2[10][10], int result[10][10], int row, 
 
 void penjumlahan()
 {
+plus:
+    printf("");
     int mat1[10][10], mat2[10][10], result[10][10];
     int row1, col1, row2, col2;
 
     // Input ukuran matriks pertama
     printf("Masukkan jumlah baris matriks Ke-1: ");
-    scanf("%d", &row1);
+    berhasil = scanf("%d", &row1);
+    if (getchar() != '\n')
+    {
+        eror();
+        goto plus;
+    }
+
     printf("Masukkan jumlah kolom matriks Ke-1: ");
-    scanf("%d", &col1);
+    berhasil = scanf("%d", &col1);
+    if (getchar() != '\n')
+    {
+        eror();
+        goto plus;
+    }
 
     // Input ukuran matriks kedua
     printf("Masukkan jumlah baris matriks Ke-2: ");
-    scanf("%d", &row2);
+    berhasil = scanf("%d", &row2);
+    if (getchar() != '\n')
+    {
+        eror();
+        goto plus;
+    }
     printf("Masukkan jumlah kolom matriks Ke-2: ");
-    scanf("%d", &col2);
+    berhasil = scanf("%d", &col2);
+    if (getchar() != '\n')
+    {
+        eror();
+        goto plus;
+    }
 
     // Pastikan ukuran matriks kedua sesuai untuk penjumlahan
     if (row1 != row2 || col1 != col2)
     {
         printf("Ukuran matriks tidak sesuai untuk penjumlahan.\n");
+        fflush(stdin);
+        clear();
+        goto plus;
     }
 
     // Input elemen matriks pertama
@@ -79,7 +120,12 @@ void penjumlahan()
         for (int j = 0; j < col1; j++)
         {
             printf("Baris %d, Kolom %d: ", i + 1, j + 1);
-            scanf("%d", &mat1[i][j]);
+            berhasil = scanf("%d", &mat1[i][j]);
+            if (getchar() != '\n')
+            {
+                eror();
+                goto plus;
+            }
         }
     }
 
@@ -90,7 +136,12 @@ void penjumlahan()
         for (int j = 0; j < col2; j++)
         {
             printf("Baris %d, Kolom %d: ", i + 1, j + 1);
-            scanf("%d", &mat2[i][j]);
+            berhasil = scanf("%d", &mat2[i][j]);
+            if (getchar() != '\n')
+            {
+                eror();
+                goto plus;
+            }
         }
     }
 
@@ -128,26 +179,51 @@ void minMatrix(int mat1[10][10], int mat2[10][10], int result[10][10], int row, 
 
 void pengurangan()
 {
+min:
+    printf("");
     int mat1[10][10], mat2[10][10], result[10][10];
     int row1, col1, row2, col2;
 
     // Input ukuran matriks pertama
     printf("Masukkan jumlah baris matriks Ke-1: ");
-    scanf("%d", &row1);
+    berhasil = scanf("%d", &row1);
+    if (getchar() != '\n')
+    {
+        eror();
+        goto min;
+    }
     printf("Masukkan jumlah kolom matriks Ke-1: ");
-    scanf("%d", &col1);
+    berhasil = scanf("%d", &col1);
+    if (getchar() != '\n')
+    {
+        eror();
+        goto min;
+    }
 
     // Input ukuran matriks kedua
     printf("Masukkan jumlah baris matriks Ke-2: ");
-    scanf("%d", &row2);
+    berhasil = scanf("%d", &row2);
+    if (getchar() != '\n')
+    {
+        eror();
+        goto min;
+    }
+
     printf("Masukkan jumlah kolom matriks Ke-2: ");
-    scanf("%d", &col2);
+    berhasil = scanf("%d", &col2);
+    if (getchar() != '\n')
+    {
+        eror();
+        goto min;
+    }
 
     // Pastikan ukuran matriks kedua sesuai untuk penjumlahan
     if (row1 != row2 || col1 != col2)
     {
         printf("Ukuran matriks tidak sesuai untuk penjumlahan.\n");
         fflush(stdin);
+        clear();
+        goto min;
     }
 
     // Input elemen matriks pertama
@@ -157,7 +233,12 @@ void pengurangan()
         for (int j = 0; j < col1; j++)
         {
             printf("Baris %d, Kolom %d: ", i + 1, j + 1);
-            scanf("%d", &mat1[i][j]);
+            berhasil = scanf("%d", &mat1[i][j]);
+            if (getchar() != '\n')
+            {
+                eror();
+                goto min;
+            }
         }
     }
 
@@ -168,7 +249,12 @@ void pengurangan()
         for (int j = 0; j < col2; j++)
         {
             printf("Baris %d, Kolom %d: ", i + 1, j + 1);
-            scanf("%d", &mat2[i][j]);
+            berhasil = scanf("%d", &mat2[i][j]);
+            if (getchar() != '\n')
+            {
+                eror();
+                goto min;
+            }
         }
     }
 
@@ -206,14 +292,27 @@ void transposeMatrix(int mat[10][10], int trans[10][10], int row, int col)
 
 void transpose()
 {
+trans:
+    printf("");
     int mat[10][10], trans[10][10];
     int row, col;
 
     // Input ukuran matriks
     printf("Masukkan jumlah baris matriks: ");
-    scanf("%d", &row);
+    berhasil = scanf("%d", &row);
+    if (getchar() != '\n')
+    {
+        eror();
+        goto trans;
+    }
+
     printf("Masukkan jumlah kolom matriks: ");
-    scanf("%d", &col);
+    berhasil = scanf("%d", &col);
+    if (getchar() != '\n')
+    {
+        eror();
+        goto trans;
+    }
 
     // Input elemen matriks
     printf("Masukkan elemen matriks:\n");
@@ -222,7 +321,12 @@ void transpose()
         for (int j = 0; j < col; j++)
         {
             printf("Baris %d, Kolom %d: ", i + 1, j + 1);
-            scanf("%d", &mat[i][j]);
+            berhasil = scanf("%d", &mat[i][j]);
+            if (getchar() != '\n')
+            {
+                eror();
+                goto trans;
+            }
         }
     }
 
