@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
 
 void clear()
 {
@@ -52,9 +55,9 @@ int main()
 
     int ditemukan = 0;
 
-    for (row = 0; row < 3; row++)
+    for (int i = 0; i < row; i++)
     {
-        for (col = 0; col < 3; col++)
+        for (int j = 0; j < col; j++)
         {
             if (mat[row][col] == target)
             {
@@ -76,6 +79,9 @@ int main()
     {
         printf("Elemen %d Tidak Di Temukan Dalam Matriks", target);
     }
+
+    getchar();
+
 
     return 0;
 }
