@@ -1,5 +1,7 @@
 #include "lib.restaurant.h"
 
+int berhasil;
+
 void clear()
 {
     printf("\033[2J\033[1;1H");
@@ -195,7 +197,7 @@ void restaurant(choice)
         clear();
         int deleteIndex;
         printf("Masukkan indeks makanan yang ingin dihapus : ");
-        scanf("%d", &deleteIndex);
+        berhasil = scanf("%d", &deleteIndex);
         deleteFood(menu, &count, deleteIndex - 1);
     }
     break;
