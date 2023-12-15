@@ -1,136 +1,162 @@
 #include <stdio.h>
+#include <stdbool.h>
 
-#define SIZE 4
-
-void printSudoku(int sudoku[SIZE][SIZE])
+// Fungsi untuk mencetak matriks Sudoku
+void printSudoku(int sudoku[4][4])
 {
-    int pbt1 = 1;
-    int pbt;
-    for (int i = 0; i < SIZE; i++)
+    for (int i = 0; i < 4; i++)
     {
-        for (int j = 0; j < SIZE; j++)
+        for (int j = 0; j < 4; j++)
         {
             printf("%d ", sudoku[i][j]);
-            /*for (pbt = i; pbt >= 3 * pbt1; pbt1++)
-            {
-                printf("\n");
-                printf("-----|-----|-----");
-                printf("\n");
-            }*/
         }
         printf("\n");
     }
-    printf("\n");
 }
 
-int isValidMove(int sudoku[SIZE][SIZE], int row, int col, int num)
+// Fungsi untuk memeriksa apakah suatu angka dapat ditempatkan pada baris dan kolom tertentu
+int isSafe(int sudoku[4][4], int row, int col, int num)
 {
-    // Check if the number is not in the same row or column
-    for (int i = 0; i < SIZE; i++)
+    // Periksa baris
+    for (int x = 0; x < 4; x++)
     {
-        if (sudoku[row][i] == num || sudoku[i][col] == num)
+        if (sudoku[row][x] == num)
         {
-            return 0; // False
+            return 0;
         }
     }
 
-    // Check if the number is not in the same 2x2 box
-    int startRow = 2 * (row / 2);
-    int startCol = 2 * (col / 2);
-    for (int i = 0; i < 2; i++)
+    // Periksa kolom
+    for (int x = 0; x < 4; x++)
     {
-        for (int j = 0; j < 2; j++)
+        if (sudoku[x][col] == num)
         {
-            if (sudoku[startRow + i][startCol + j] == num)
-            {
-                return 0; // False
-            }
+            return 0;
         }
     }
 
-    return 1; // True
+    return 1;
 }
 
-int isBoardFilled(int sudoku[SIZE][SIZE])
+// Fungsi untuk menyelesaikan Sudoku menggunakan backtracking
+int solveSudoku(int sudoku[4][4])
 {
-    for (int i = 0; i < SIZE; i++)
+    for (int row = 0; row < 4; row++)
     {
-        for (int j = 0; j < SIZE; j++)
-        {
-            if (sudoku[i][j] == 0)
-            {
-                return 0; // False
-            }
-        }
-    }
-    return 1; // True
-}
-
-int solveSudoku(int sudoku[SIZE][SIZE])
-{
-    int row, col;
-
-    // Cek apakah papan Sudoku telah terisi semua
-    if (isBoardFilled(sudoku))
-    {
-        return 1; // Sudoku telah selesai
-    }
-
-    // Temukan lokasi yang belum diisi
-    for (row = 0; row < SIZE; row++)
-    {
-        for (col = 0; col < SIZE; col++)
+        for (int col = 0; col < 4; col++)
         {
             if (sudoku[row][col] == 0)
             {
-                // Pengguna mengisi angka
-                printf("\nMasukkan angka untuk baris %d kolom %d (1-%d): ", row + 1, col + 1, SIZE);
-                scanf("%d", &sudoku[row][col]);
-
-                if (isValidMove(sudoku, row, col, sudoku[row][col]))
+                for (int num = 1; num <= 4; num++)
                 {
-                    // Coba solusi
-                    if (solveSudoku(sudoku))
+                    if (isSafe(sudoku, row, col, num))
                     {
-                        return 1; // Solusi ditemukan
+                        sudoku[row][col] = num;
+
+                        if (solveSudoku(sudoku))
+                        {
+                            return 1;
+                        }
+
+                        sudoku[row][col] = 0;
                     }
-                    // Jika tidak valid, kembalikan ke 0 (backtrack)
-                    sudoku[row][col] = 0;
                 }
-                else
-                {
-                    // Jika langkah tidak valid, kembalikan ke 0 (backtrack)
-                    sudoku[row][col] = 0;
-                }
+                return 0;
             }
         }
     }
+    return 1;
+}
 
-    return 0; // Tidak ada solusi yang valid untuk jalur ini
+// Fungsi untuk memeriksa apakah matriks Sudoku valid
+int isValidSudoku(int sudoku[4][4])
+{
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            if (sudoku[i][j] != 0 && !isSafe(sudoku, i, j, sudoku[i][j]))
+            {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+// Fungsi untuk mengisi sel kosong pada Sudoku
+void fillSudokuCell(int sudoku[4][4], int row, int col, int value)
+{
+    sudoku[row][col] = value;
+}
+
+// Fungsi untuk memeriksa apakah input pengguna valid
+bool isValidInput(int sudoku[4][4], int row, int col, int value)
+{
+    // Periksa apakah angka sudah ada di baris atau kolom
+    for (int i = 0; i < 4; i++)
+    {
+        if (sudoku[row][i] == value || sudoku[i][col] == value)
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 int main()
 {
-    int sudoku[SIZE][SIZE] = {
+    int sudoku[4][4] = {
         {1, 0, 0, 0},
-        {0, 3, 0, 4},
-        {4, 0, 0, 3},
-        {0, 2, 0, 0}
+        {0, 2, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 3, 0}};
 
-    };
-
-    printf("Sudoku Awal:\n");
+    // Tampilkan Sudoku yang sudah ada
+    printf("Sudoku yang sudah ada:\n");
     printSudoku(sudoku);
 
-    // Selesaikan Sudoku
+    int row, col, value;
+
+    // Minta pengguna untuk mengisi sel yang kosong
+    do
+    {
+        printf("\nMasukkan baris (0-3), kolom (0-3), dan angka (1-4) yang ingin diisi (pisahkan dengan spasi): ");
+        scanf("%d %d %d", &row, &col, &value);
+
+        // Validasi input pengguna
+        if (row < 0 || row > 3 || col < 0 || col > 3 || value < 1 || value > 4 || !isValidInput(sudoku, row, col, value))
+        {
+            printf("Input tidak valid. Ulangi input.\n");
+        }
+        else
+        {
+            // Isi sel kosong dengan input pengguna
+            fillSudokuCell(sudoku, row, col, value);
+
+            // Tampilkan Sudoku yang telah diupdate
+            printf("\nSudoku setelah diupdate:\n");
+            printSudoku(sudoku);
+        }
+        // Validasi matriks Sudoku
+        if (!isValidSudoku(sudoku))
+        {
+            printf("\nMatriks Sudoku tidak valid. Silakan perbaiki matriks yang sudah ada.\n");
+            return 1;
+        }
+
+    } while (!isValidSudoku(sudoku));
+
+    // Selesaikan Sudoku jika ada sel yang kosong
     if (solveSudoku(sudoku))
     {
-        printf("\nSudoku Selesai:\n");
+        printf("\nSudoku setelah dipecahkan:\n");
         printSudoku(sudoku);
     }
     else
     {
-        printf("Tidak ada solusi yang valid.\n");
+        printf("\nSudoku ini tidak memiliki solusi.\n");
     }
 
     return 0;
