@@ -11,7 +11,7 @@ struct Antrian {
     char eksekutor[MAX_NAMA];
 };
 
-struct Barber {
+struct BarberShop {
     struct Antrian antrian[MAX_ANTRIAN];
     int jumlahAntrian;
     int pendapatan[3];  // Pendapatan dari eksekutor Anti, Bella, Citra
@@ -20,9 +20,9 @@ struct Barber {
 
 void tampilkanHeader() {
     printf("\n-------------------------------\n");
-    printf("\n        BARBER HYTAM\n");
-    printf("     Kp. Sodonk Ds. Sodonk \n\n");
-    printf("---------------------------------\n");
+    printf("\n        Barber Pop\n");
+    printf("Jl. Perhatian Blok I No. 3U\n\n");
+    printf("-------------------------------\n");
 }
 
 void tampilkanMenu() {
@@ -35,15 +35,15 @@ void tampilkanMenu() {
     printf("-------------------------------\n\n");
 }
 
-void tambahAntrian(struct Barber *Barber, const char *nama) {
-    if (Barber->jumlahAntrian < MAX_ANTRIAN) {
+void tambahAntrian(struct BarberShop *barberShop, const char *nama) {
+    if (barberShop->jumlahAntrian < MAX_ANTRIAN) {
         struct Antrian newAntrian;
         
         // Mencari nomor antrian tertinggi
         int nomorTertinggi = 0;
-        for (int i = 0; i < Barber->jumlahAntrian; i++) {
-            if (Barber->antrian[i].nomorAntrian > nomorTertinggi) {
-                nomorTertinggi = Barber->antrian[i].nomorAntrian;
+        for (int i = 0; i < barberShop->jumlahAntrian; i++) {
+            if (barberShop->antrian[i].nomorAntrian > nomorTertinggi) {
+                nomorTertinggi = barberShop->antrian[i].nomorAntrian;
             }
         }
 
@@ -59,8 +59,8 @@ void tambahAntrian(struct Barber *Barber, const char *nama) {
             strncpy(newAntrian.eksekutor, "Citra", MAX_NAMA - 1);
         }
 
-        Barber->antrian[Barber->jumlahAntrian] = newAntrian;
-        Barber->jumlahAntrian++;
+        barberShop->antrian[barberShop->jumlahAntrian] = newAntrian;
+        barberShop->jumlahAntrian++;
 
         printf("No. Antrian : %d\n", newAntrian.nomorAntrian);
         printf("Nama        : %s\n", newAntrian.nama);
@@ -69,8 +69,8 @@ void tambahAntrian(struct Barber *Barber, const char *nama) {
     }
 }
 
-void hapusAntrian(struct Barber *Barber) {
-     if (Barber->jumlahAntrian > 0) {
+void hapusAntrian(struct BarberShop *barberShop) {
+     if (barberShop->jumlahAntrian > 0) {
         printf("Eksekutor :\n");
         printf("1. Anti\n");
         printf("2. Bella\n");
@@ -81,7 +81,7 @@ void hapusAntrian(struct Barber *Barber) {
         scanf("%d", &pilihan);
 
         if (pilihan >= 1 && pilihan <= 3) {
-            struct Antrian removedAntrian = Barber->antrian[0];
+            struct Antrian removedAntrian = barberShop->antrian[0];
             printf("\n-------------------------------\n");
             printf("No. Antrian : %d\n", removedAntrian.nomorAntrian);
             printf("Nama        : %s\n", removedAntrian.nama);
@@ -90,26 +90,26 @@ void hapusAntrian(struct Barber *Barber) {
 
             // Perbarui pendapatan eksekutor
             if (strcmp(removedAntrian.eksekutor, "Anti") == 0) {
-                Barber->pendapatan[0] += 12000;
-                Barber->pendapatanMitra += 8000;
+                barberShop->pendapatan[0] += 12000;
+                barberShop->pendapatanMitra += 8000;
             } else if (strcmp(removedAntrian.eksekutor, "Bella") == 0) {
-                Barber->pendapatan[1] += 12000;
-                Barber->pendapatanMitra += 8000;
+                barberShop->pendapatan[1] += 12000;
+                barberShop->pendapatanMitra += 8000;
             } else if (strcmp(removedAntrian.eksekutor, "Citra") == 0) {
-                Barber->pendapatan[2] += 12000;
-                Barber->pendapatanMitra += 8000;
+                barberShop->pendapatan[2] += 12000;
+                barberShop->pendapatanMitra += 8000;
             }
 
         	// Geser antrian ke depan setelah menghapus
-        	for (int i = 0; i < Barber->jumlahAntrian - 1; i++) {
-            	Barber->antrian[i] = Barber->antrian[i + 1];
+        	for (int i = 0; i < barberShop->jumlahAntrian - 1; i++) {
+            	barberShop->antrian[i] = barberShop->antrian[i + 1];
         	}
-        	Barber->jumlahAntrian--;
+        	barberShop->jumlahAntrian--;
 
         	// Perbarui nomor antrian setelah penghapusan
-        	/*for (int i = 0; i < Barber->jumlahAntrian; i++) {
-            	Barber->antrian[i].nomorAntrian = i + 1;
-        	}*/
+        	for (int i = 0; i < barberShop->jumlahAntrian; i++) {
+            	barberShop->antrian[i].nomorAntrian = i + 1;
+        	}
         } else {
             printf("Pilihan eksekutor tidak valid.\n");
         }
@@ -119,32 +119,32 @@ void hapusAntrian(struct Barber *Barber) {
 }
 
 
-void daftarTunggu(const struct Barber *Barber) {
+void daftarTunggu(const struct BarberShop *barberShop) {
     printf("------- Data Antrian -------\n\n");
-    for (int i = 0; i < Barber->jumlahAntrian; i++) {
-        printf("No. Antrian  : %d\n", Barber->antrian[i].nomorAntrian);
-        printf("Nama      : %s\n", Barber->antrian[i].nama);
-        printf("Sisa Antrian : %d\n\n", Barber->jumlahAntrian + i - 1);
+    for (int i = 0; i < barberShop->jumlahAntrian; i++) {
+        printf("No. Antrian  : %d\n", barberShop->antrian[i].nomorAntrian);
+        printf("Nama      : %s\n", barberShop->antrian[i].nama);
+        printf("Sisa Antrian : %d\n\n", barberShop->jumlahAntrian + i - 1);
         printf("----------------------------\n");
     }
 }
 
-void tampilkanPendapatan(const struct Barber *Barber) {
+void tampilkanPendapatan(const struct BarberShop *barberShop) {
     printf("-------- Pendapatan --------\n");
-    printf("keuntungan Mitra        :Rp. %d,-\n", Barber->pendapatanMitra);
-    printf("- Anti    :Rp. %d,-\n", Barber->pendapatan[0]);
-    printf("- Bella   :Rp. %d,-\n", Barber->pendapatan[1]);
-    printf("- Citra   :Rp. %d,-\n", Barber->pendapatan[2]);
+    printf("keuntungan Mitra        :Rp. %d,-\n", barberShop->pendapatanMitra);
+    printf("- Anti    :Rp. %d,-\n", barberShop->pendapatan[0]);
+    printf("- Bella   :Rp. %d,-\n", barberShop->pendapatan[1]);
+    printf("- Citra   :Rp. %d,-\n", barberShop->pendapatan[2]);
     printf("----------------------------\n");
 }
 
 int main() {
-    struct Barber Barber;
-    Barber.jumlahAntrian = 0;
-    Barber.pendapatan[0] = 0;  // Pendapatan Anti
-    Barber.pendapatan[1] = 0;  // Pendapatan Bella
-    Barber.pendapatan[2] = 0;  // Pendapatan Citra
-    Barber.pendapatanMitra = 0;  // Pendapatan Mitra
+    struct BarberShop barberShop;
+    barberShop.jumlahAntrian = 0;
+    barberShop.pendapatan[0] = 0;  // Pendapatan Anti
+    barberShop.pendapatan[1] = 0;  // Pendapatan Bella
+    barberShop.pendapatan[2] = 0;  // Pendapatan Citra
+    barberShop.pendapatanMitra = 0;  // Pendapatan Mitra
 
     int menu;
     char nama[MAX_NAMA];
@@ -160,19 +160,19 @@ int main() {
             case 1:
                 printf("Masukkan nama untuk menambah antrian: ");
                 scanf("%s", nama);
-                tambahAntrian(&Barber, nama);
+                tambahAntrian(&barberShop, nama);
                 break;
 
             case 2:
-                hapusAntrian(&Barber);
+                hapusAntrian(&barberShop);
                 break;
 
             case 3:
-                daftarTunggu(&Barber);
+                daftarTunggu(&barberShop);
                 break;
 
             case 4:
-                tampilkanPendapatan(&Barber);
+                tampilkanPendapatan(&barberShop);
                 break;
 
             case 5:
