@@ -74,9 +74,9 @@ int main()
     int pilihan, nomorLoket;
     
         printf("=================================\n");
-        printf("Nama  : Fandi Fajar Maulana\n");
-        printf("NIM   : 20230801157\n");
-        printf("Email : fandifajar31@student.esaungul.ac.id\n");
+        printf("Nama  : Farhan Fatahillah\n");
+        printf("NIM   : 20230801045\n");
+        printf("Email : farhanfatahillah10oib@student.esaungul.ac.id\n");
         printf("=================================\n");
         printf("\n");
         printf("Tekan ENTER Untuk Melanjutkan.............\n");
