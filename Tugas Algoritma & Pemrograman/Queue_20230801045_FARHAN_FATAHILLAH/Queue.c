@@ -2,6 +2,7 @@
 #include "prc.queue.c"
 
 int main(){
+    system("clear");
     printf("=================================\n");
     printf("Nama  : Farhan Fatahillah\n");
     printf("NIM   : 20230801045\n");
@@ -10,6 +11,7 @@ int main(){
     printf("\n");
     printf("Tekan ENTER Untuk Melanjutkan.............\n");
     getchar();
+    system("clear");
 
     main_queue();
 }

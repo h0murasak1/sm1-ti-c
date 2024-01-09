@@ -21,8 +21,8 @@ struct BarberShop
 void tampilkanHeader()
 {
     printf("\n-----------------------------------\n");
-    printf("\n         BarberShop RAJAEG\n");
-    printf(" Jl. RAJAEG DS. RAJAEG. KP. RAJAEG\n\n");
+    printf("\n         BARBER HYTAM\n");
+    printf(" Jl. SODONK DS. SODONK. KP. SODONK\n\n");
     printf("-------------------------------------\n");
 }
 
@@ -150,9 +150,9 @@ void daftarTunggu(const struct BarberShop *BarberShop)
     printf("------- Data Antrian -------\n\n");
     for (int i = 0; i < BarberShop->jumlahAntrian; i++)
     {
-        printf("No. Antrian  : %d\n", BarberShop->antrian[i].nomorAntrian);
-        printf("Nama      : %s\n", BarberShop->antrian[i].nama);
-        printf("Sisa Antrian : %d\n\n", i);
+        printf("No. Antrian     : %d\n", BarberShop->antrian[i].nomorAntrian);
+        printf("Nama            : %s\n", BarberShop->antrian[i].nama);
+        printf("Sisa Antrian    : %d\n\n", i);
         printf("----------------------------\n");
     }
 }
