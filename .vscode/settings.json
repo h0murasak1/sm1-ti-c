@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "__locale": "c",
-        "lib.rekursif.h": "c"
+        "lib.rekursif.h": "c",
+        "APLIKASI_BANK.C": "cpp",
+        "app_bank.C": "cpp"
     }
 }

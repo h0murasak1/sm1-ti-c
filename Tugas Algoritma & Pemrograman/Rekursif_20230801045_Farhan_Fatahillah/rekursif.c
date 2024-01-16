@@ -7,7 +7,7 @@ int main()
     printf("============================================================\n");
     printf("Nama    : Farhan Fatahillah\n");
     printf("NIM     : 20230801045\n");
-    printf("Email   : farhanfatahillah10oib@students.esaunggul.ac.id\n");
+    printf("Email   : farhanfatahillah10oib@student.esaunggul.ac.id\n");
     printf("=============================================================\n\n");
     printf("Tekan ENTER Untuk Melanjutkan.............\n");
     getchar();
