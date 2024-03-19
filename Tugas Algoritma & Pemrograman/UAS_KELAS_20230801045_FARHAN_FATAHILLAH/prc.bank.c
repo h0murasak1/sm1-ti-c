@@ -2,7 +2,7 @@
 
 void sumpah()
 {
-    printf("Dengan Nama ALLAH, saya Farhan Fatahillah bersumpah bahwa saya tidak melakukan kecurangan (mencontek ataupun memberikan contekan) selama UAS Algoritma dan pemrograman ini berlangsung,\njika pengawas menemukan saya melakukan kecurangan maka saya siap mendapatkan nilai 0 pada UAS, \ndan apabila kecurangan saya tidak diketahui oleh pengawas maka saya siap mendapatkan azab dari ALLAH baik dunia maupun di akhirat kelak");
+    printf("Dengan Nama ALLAH, saya Farhan Fatahillah bersumpah bahwa saya tidak melakukan kecurangan (mencontek ataupun memberikan contekan)\nselama UAS Algoritma dan pemrograman ini berlangsung,\njika pengawas menemukan saya melakukan kecurangan maka saya siap mendapatkan nilai 0 pada UAS, \ndan apabila kecurangan saya tidak diketahui oleh pengawas maka saya siap mendapatkan azab dari ALLAH baik dunia maupun di akhirat kelak");
     printf("\n");
 }
 
@@ -16,11 +16,13 @@ void transfer()
     // Meminta input dari pengguna
     printf("Masukkan nomor rekening tujuan: ");
     scanf("%d", &noRekeningTujuan);
-    while(getchar() != '\n');
+    while (getchar() != '\n')
+        ;
 
     printf("Masukkan nominal transfer: ");
     scanf("%d", &nominalTransfer);
-    while(getchar() != '\n');
+    while (getchar() != '\n')
+        ;
 
     // Memeriksa apakah saldo mencukupi
     if (rekeningPengguna.saldo - nominalTransfer >= 0)
@@ -90,4 +92,64 @@ void tarikTunai()
 void sisaSaldo()
 {
     printf("Sisa Saldo Anda Sekarang : Rp.%d", rekeningPengguna.saldo);
+}
+
+
+void mainMenu()
+{
+    switch (pilihan)
+    {
+    case 1:
+        system("clear");
+        printf("Sumpah Saya\n");
+        printf("============\n");
+        sumpah();
+        break;
+
+    case 2:
+        system("clear");
+        printf("TRANSFER\n");
+        printf("============\n");
+        transfer();
+        break;
+
+    case 3:
+        system("clear");
+        printf("NABUNG\n");
+        printf("============\n");
+        nabung();
+        break;
+
+    case 4:
+        system("clear");
+        printf("TARIK TUNAI\n");
+        printf("============\n");
+        tarikTunai();
+        break;
+
+    case 5:
+        system("clear");
+        printf("LIHAT SALDO\n");
+        printf("============\n");
+        sisaSaldo();
+        break;
+
+    case 6:
+        system("clear");
+        printf("Terima Kasih Telah Menggunakan Aplikasi Kami......\n");
+        break;
+
+    default:
+        system("clear");
+        printf("Inputan tidak valid, masukkan pilihan antara (1 - 6)\n");
+    }
+
+    printf("\nApakah Anda ingin kembali ke menu utama? (y/n): ");
+    char jawaban;
+    scanf(" %c", &jawaban);
+
+    if (jawaban == 'y' || jawaban == 'Y')
+    {
+        mainMenu(); // Rekursif: Memanggil fungsi mainMenu() untuk kembali ke menu utama
+    }
 }
